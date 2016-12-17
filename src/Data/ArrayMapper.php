@@ -57,7 +57,7 @@ class ArrayMapper implements IMapper
 				}
 			} else {
 				if (MapProperty::isPrimitive($propertyType)) {
-					$object->$propertyName = $value;
+					$object->$propertyName = MapProperty::castToType($value, $propertyType);
 				} else {
 					$mapObject = $property->getMappedObject();
 					$propertyObject = $mapObject->getInstance();

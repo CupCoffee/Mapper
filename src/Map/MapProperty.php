@@ -113,6 +113,57 @@ class MapProperty
 	}
 
 	/**
+	 * @param $type
+	 * @return bool
+	 */
+	private static function isNumber($type)
+	{
+		return in_array($type, ["int", "integer", "float"]);
+	}
+
+	/**
+	 * @param $type
+	 * @return bool
+	 */
+	private static function isBool($type)
+	{
+		return in_array($type, ["bool", "boolean"]);
+	}
+
+	/**
+	 * @param $type
+	 * @return bool
+	 */
+	private static function isString($type)
+	{
+		return $type == "string";
+	}
+
+
+	/**
+	 * Casts the value to given type
+	 * @param $value
+	 * @param $type
+	 * @return bool|int|string
+	 */
+	public static function castToType($value, $type)
+	{
+		if (self::isBool($type)) {
+			return boolval($value);
+		}
+
+		if (self::isNumber($type)) {
+			return intval($value);
+		}
+
+		if (self::isString($type)) {
+			return strval($value);
+		}
+
+		return $value;
+	}
+
+	/**
 	 * @return MapObject
 	 */
 	public function getMappedObject()
