@@ -11,8 +11,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Reify\\Tests\\": "tests/",
-      "Spotify\\": "tests/Data/Spotify"
+      "Reify\\Tests\\": "tests/"
     }
   },
   "authors": [
