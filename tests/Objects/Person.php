@@ -15,7 +15,7 @@ class Person
 	public $gender;
 
 	/**
-	 * @var string
+	 * @var integer
 	 */
 	public $age;
 

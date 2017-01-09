@@ -5,15 +5,6 @@ namespace Reify\Map;
 
 class MapProperty
 {
-	const PRIMITIVE_TYPES = [
-		"string",
-		"bool",
-		"boolean",
-		"int",
-		"integer",
-		"float"
-	];
-
 	/**
 	 * @var MapObject|string
 	 */
@@ -101,15 +92,6 @@ class MapProperty
 	public function setCollection($collection)
 	{
 		$this->collection = $collection;
-	}
-
-	/**
-	 * @param string $type
-	 * @return bool
-	 */
-	public static function isPrimitive($type)
-	{
-		return in_array($type, self::PRIMITIVE_TYPES);
 	}
 
 	/**
