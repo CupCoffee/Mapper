@@ -5,6 +5,7 @@ namespace Reify\Map;
 use Exception;
 use ReflectionClass;
 use ReflectionProperty;
+use Reify\Util\Type;
 
 class MapObject
 {
@@ -36,7 +37,7 @@ class MapObject
 				continue;
 			}
 
-			if (!MapProperty::isPrimitive($resolvedProperty->getType())) {
+			if (!Type::isPrimitive($resolvedProperty->getType())) {
 				$resolvedProperty->setMappedObject(MapObject::map($resolvedProperty->getType(), $property->getName()));
 			}
 
@@ -120,7 +121,7 @@ class MapObject
 					$property->setCollection(true);
 				}
 
-				if (MapProperty::isPrimitive(strtolower($type))) {
+				if (Type::isPrimitive(strtolower($type))) {
 					$property->setType(strtolower($type));
 				} else {
 					$resolvedClass = $this->resolveType($class->getNamespaceName(), $type);

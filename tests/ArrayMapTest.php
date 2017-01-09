@@ -56,7 +56,7 @@ class ArrayMapTest extends TestCase
 
 		$this->assertTrue($instance->isAwesome === true, 'Mapping true to a boolean');
 	}
-	
+
 	public function testMapIntegerProperty()
 	{
 		$data = ['age' => 1];
@@ -64,6 +64,6 @@ class ArrayMapTest extends TestCase
 
 		$this->assertTrue($instance->age === 1, 'Mapping number 1 to a number');
 	}
-	
+
 
 }
