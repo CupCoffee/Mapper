@@ -13,16 +13,29 @@ class Mapper
 	private $mapper;
 
 	/**
-	 * @var
+	 * @var mixed
 	 */
 	private $data;
 
-	public function map(IMapper $mapper, $data)
-	{
-		$this->setMapper($mapper);
-		$this->setData($data);
+	/**
+	 * @var bool
+	 */
+	private $mapArray = false;
 
-		return $this;
+
+	public static function map(IMapper $mapper, $data)
+	{
+		return (new Mapper())
+			->setMapper($mapper)
+			->setData($data);
+	}
+
+	public static function mapArray(IMapper $mapper, $data)
+	{
+		return (new Mapper())
+			->setMapArray(true)
+			->setMapper($mapper)
+			->setData($data);
 	}
 
 	public function to($class)
@@ -31,7 +44,11 @@ class Mapper
 			throw new Exception("Undefined mapper interface");
 		}
 
-		return $this->mapper->map($this->data, MapObject::map($class));
+		if ($this->mapArray) {
+			return $this->mapper->mapArray($this->data, MapObject::map($class));
+		} else {
+			return $this->mapper->map($this->data, MapObject::map($class));
+		}
 	}
 
 	/**
@@ -51,6 +68,16 @@ class Mapper
 	public function setData($data)
 	{
 		$this->data = $data;
+		return $this;
+	}
+
+	/**
+	 * @param bool $mapArray
+	 * @return Mapper
+	 */
+	public function setMapArray($mapArray)
+	{
+		$this->mapArray = $mapArray;
 		return $this;
 	}
 }

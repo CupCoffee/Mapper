@@ -25,7 +25,12 @@ class ArrayMapTest extends TestCase
 
 	protected function map($data)
 	{
-		return (new Mapper())->map(new ArrayMapper(), $data)->to(Person::class);
+		return Mapper::map(new ArrayMapper(), $data)->to(Person::class);
+	}
+
+	protected function mapArray($data)
+	{
+		return Mapper::mapArray(new ArrayMapper(), $data)->to(Person::class);
 	}
 
 	public function testMapToClass()
@@ -56,7 +61,7 @@ class ArrayMapTest extends TestCase
 
 		$this->assertTrue($instance->isAwesome === true, 'Mapping true to a boolean');
 	}
-	
+
 	public function testMapIntegerProperty()
 	{
 		$data = ['age' => 1];
@@ -64,6 +69,24 @@ class ArrayMapTest extends TestCase
 
 		$this->assertTrue($instance->age === 1, 'Mapping number 1 to a number');
 	}
-	
 
+	public function testMapCollection()
+	{
+		$data = [
+			[
+				'name' => 'John',
+				'gender' => 'Male'
+			],
+			[
+				'name' => 'Elvira',
+				'gender' => 'Female'
+			]
+		];
+
+		$instance = $this->mapArray($data);
+
+		$this->assertInternalType('array', $instance, 'Collection mapping returns array');
+
+		$this->assertCount(2, $instance, 'Checking if collection mapping has a length of 2');
+	}
 }
