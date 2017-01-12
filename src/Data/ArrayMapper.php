@@ -6,6 +6,7 @@ namespace Reify\Data;
 use Reify\IMapper;
 use Reify\Map\MapObject;
 use Reify\Map\MapProperty;
+use Reify\Util\Type;
 
 class ArrayMapper implements IMapper
 {
@@ -51,8 +52,8 @@ class ArrayMapper implements IMapper
 					$this->mapProperty($property, $item, $object);
 				}
 			} else {
-				if (MapProperty::isPrimitive($propertyType)) {
-					$object->$propertyName = $value;
+				if (Type::isPrimitive($propertyType)) {
+					$object->$propertyName = Type::castToType($value, $propertyType);
 				} else {
 					$mapObject = $property->getMappedObject();
 					$propertyObject = $mapObject->getInstance();
