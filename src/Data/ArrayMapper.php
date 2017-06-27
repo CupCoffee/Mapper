@@ -20,7 +20,9 @@ class ArrayMapper implements IMapper
 		$object = $class->getInstance();
 
 		foreach ($data as $propertyName => $value) {
-			$this->mapProperty($class->getProperty($propertyName), $value, $object);
+			if (property_exists($object, $propertyName) && $property = $class->getProperty($propertyName)) {
+				$object->$propertyName = $this->mapProperty($property, $value);
+			}
 		}
 
 		return $object;
@@ -39,40 +41,48 @@ class ArrayMapper implements IMapper
 
 	/**
 	 * @param MapProperty $property
-	 * @param MapObject $object
+	 * @param mixed $data
+	 *
+	 * @return mixed mappedObject
+	 * @internal param mixed $value
+	 *
 	 */
-	private function mapProperty($property, $value, &$object)
+	private function mapProperty(MapProperty $property, $data)
 	{
-		if ($property) {
-			$propertyName = $property->getName();
-			$propertyType = $property->getType();
+		if ($property->isCollection()) {
+			$items = [];
+			foreach((array) $data as $element) {
+				$items[] = $this->mapValue($property, $element);
+			}
 
-			if (is_array($value)) {
-				foreach($value as $item) {
-					$this->mapProperty($property, $item, $object);
-				}
-			} else {
-				if (Type::isPrimitive($propertyType)) {
-					$object->$propertyName = Type::castToType($value, $propertyType);
-				} else {
-					$mapObject = $property->getMappedObject();
-					$propertyObject = $mapObject->getInstance();
+			return $items;
+		} else {
+			return $this->mapValue($property, $data);
+		}
+	}
 
-					foreach($value as $name => $propertyValue) {
-						$this->mapProperty($mapObject->getProperty($name), $propertyValue, $propertyObject);
-					}
+	/**
+	 * @param MapProperty $property
+	 * @param $data
+	 *
+	 * @return mixed
+	 */
+	private function mapValue(MapProperty $property, $data)
+	{
+		if (Type::isPrimitive($property->getType())) {
+			return Type::castToType($data, $property->getType());
+		} else {
+			$object = $property->getMappedObject()->getInstance();
 
-					if ($property->isCollection()) {
-						if (!isset($object->$propertyName)) {
-							$object->$propertyName = [];
-						}
+			foreach($data as $key => $value) {
+				$objectProperty = $property->getMappedObject()->getProperty($key);
 
-						$object->{$propertyName}[] = $propertyObject;
-					}  else {
-						$object->$propertyName = $propertyObject;
-					}
+				if (property_exists($object, $key)) {
+					$object->$key = $this->mapProperty($objectProperty, $value);
 				}
 			}
+
+			return $object;
 		}
 	}
 }

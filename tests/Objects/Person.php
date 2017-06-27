@@ -10,7 +10,7 @@ class Person
 	public $name;
 
 	/**
-	 * @var integer
+	 * @var string
 	 */
 	public $gender;
 

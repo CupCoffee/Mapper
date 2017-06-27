@@ -5,7 +5,7 @@ namespace Reify;
 use Exception;
 use Reify\Map\MapObject;
 
-class Mapper
+class Reify
 {
 	/**
 	 * @var IMapper
@@ -25,14 +25,14 @@ class Mapper
 
 	public static function map(IMapper $mapper, $data)
 	{
-		return (new Mapper())
+		return (new Reify())
 			->setMapper($mapper)
 			->setData($data);
 	}
 
 	public static function mapArray(IMapper $mapper, $data)
 	{
-		return (new Mapper())
+		return (new Reify())
 			->setMapArray(true)
 			->setMapper($mapper)
 			->setData($data);
@@ -53,7 +53,8 @@ class Mapper
 
 	/**
 	 * @param mixed $mapper
-	 * @return Mapper
+	 *
+	 * @return Reify
 	 */
 	public function setMapper(IMapper $mapper)
 	{
@@ -63,7 +64,7 @@ class Mapper
 
 	/**
 	 * @param mixed $data
-	 * @return Mapper
+	 * @return Reify
 	 */
 	public function setData($data)
 	{
@@ -73,7 +74,7 @@ class Mapper
 
 	/**
 	 * @param bool $mapArray
-	 * @return Mapper
+	 * @return Reify
 	 */
 	public function setMapArray($mapArray)
 	{
