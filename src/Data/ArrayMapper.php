@@ -74,7 +74,7 @@ class ArrayMapper implements IMapper
 		} else {
 			$object = $property->getMappedObject()->getInstance();
 
-			foreach($data as $key => $value) {
+			foreach((array) $data as $key => $value) {
 				$objectProperty = $property->getMappedObject()->getProperty($key);
 
 				if (property_exists($object, $key)) {
