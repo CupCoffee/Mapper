@@ -1,10 +1,9 @@
 # Reify
 
-Mapping things like json,xml,arrays and simply every kind of data a concrete instances. Avoid having to hassle with array keys or undefined exceptions when trying to
-get a json property. Stop thinking and Yolo to the **Getting Started**
+Mapping things like json, xml, arrays and simply every kind of data a concrete instances. Avoid having to hassle with array keys or undefined exceptions when trying to get a json property. Stop thinking and Yolo to the **Getting Started**
 
 ## Getting Started
-Interesting, ur getting curious right? First install this package
+Interesting, you're getting curious right? First install this package
 
 ```
 composer require "cupcoffee/mapper"
@@ -50,7 +49,7 @@ $person = (new Mapper())->map(new JsonMapper(), $json)->to(Person::class);
 
 
 ## Where does this awesome name come from!?
-Wow you we're just thinking the same as we did! 
+Wow you were just thinking the same as we did! 
 
 > Reify is a word that attempts to provide a bridge between what is abstract and what is real.
 
