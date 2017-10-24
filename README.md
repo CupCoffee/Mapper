@@ -1,7 +1,6 @@
 # Reify
 
-Mapping things like json,xml, arrays and simply every kind of data a concrete instances. Avoid having to hassle with array keys or undefined exceptions when trying to
-get a json property. Stop thinking and Yolo to the **Getting Started**
+Mapping things like json, xml, arrays and simply every kind of data a concrete instances. Avoid having to hassle with array keys or undefined exceptions when trying to get a json property. Stop thinking and Yolo to the **Getting Started**
 
 ## Getting Started
 Interesting, you're getting curious right? First install this package
